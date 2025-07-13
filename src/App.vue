@@ -1,26 +1,54 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <SidebarComponent @changeGradioPage="updateGradioPage" />
+    <GradioViewer :currentGradioUrl="currentGradioUrl" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SidebarComponent from './components/Sidebar.vue';
+import GradioViewer from './components/GradioViewer.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    SidebarComponent,
+    GradioViewer,
+  },
+  data() {
+    return {
+      currentGradioUrl: 'http://127.0.0.1:7860', // 默认加载检索页面
+    };
+  },
+  methods: {
+    updateGradioPage(url) {
+      this.currentGradioUrl = url; // 更新 Gradio iframe 的 URL
+    },
+  },
+};
 </script>
 
 <style>
+/* 全局样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 </style>
